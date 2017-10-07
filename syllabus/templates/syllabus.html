@@ -17,10 +17,17 @@
   <tr class="even">
   {% else %}
   <tr class="odd">
-  {% endif %}	   
-    <td class="week">{{ entry.week }}</td>
+  {% endif %}	
+
+  {% if entry.curweek %}
+    <td class="week current-week">
+  {% else %}
+    <td class="week">
+  {% endif %} 
+    {{ entry.week }} </td>   
     <td class="topic">{{ entry.topic }}</td>
     <td class="project">{{ entry.project}}</td>
+  
   </tr>
   {% endfor %}
   

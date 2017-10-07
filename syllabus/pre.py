@@ -18,6 +18,7 @@ def process(raw):
     may be continued if they don't contain ':'.  If # is the first
     non-blank character on a line, it is a comment ad skipped. 
     """
+    week_offset = 0
     field = None
     entry = {}
     cooked = []
@@ -49,9 +50,14 @@ def process(raw):
             if entry:
                 cooked.append(entry)
                 entry = {}
-            entry['topic'] = ""
+
+            datestamp = base.shift(weeks =+(week_offset))
+
+            entry['topic']   = ""
             entry['project'] = ""
-            entry['week'] = content
+            entry['week']    = str(datestamp.format('YYYY-MM-DD'))
+            entry['curweek'] = (datestamp - base).days <= 3.5
+            week_offset      = week_offset + 1
 
         elif field == 'topic' or field == 'project':
             entry[field] = content
